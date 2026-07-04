@@ -1,11 +1,19 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
 
 function App() {
   return (
-    <div className="flex h-screen items-center justify-center bg-neutral-900 text-white">
-      <h1 className="text-3xl font-bold">Proyecto Limpio</h1>
-      <p className="mt-4 text-neutral-400">Listo para practicar.</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<></>} />
+        <Route path="/register" element={<></>} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<></>} />
+          <Route path="/historial" element={<></>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

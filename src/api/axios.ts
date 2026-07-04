@@ -2,11 +2,9 @@ import axios from "axios";
 
 const api_url = import.meta.env.VITE_API_URL;
 
-const api = axios.create(
-  {
-    baseURL : api_url,
-  }
-)
+const api = axios.create({
+  baseURL: api_url,
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
@@ -15,3 +13,5 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+export default api;

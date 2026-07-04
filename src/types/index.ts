@@ -1,7 +1,7 @@
-type Role = 'PASSENGER' | 'DRIVER';
-type TripStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
+export type Role = "PASSENGER" | "DRIVER";
+export type TripStatus = "PENDING" | "IN_PROGRESS" | "COMPLETED";
 
-interface User {
+export interface User {
   id: number;
   firstName: string;
   lastName: string;
@@ -11,12 +11,12 @@ interface User {
   rating: number;
 }
 
-interface Trip {
+export interface Trip {
   id: number;
   status: TripStatus;
   pickupAddress: string;
   dropoffAddress: string;
-  requestedAt: string;       // ISO 8601
+  requestedAt: string; // ISO 8601
   acceptedAt: string | null;
   completedAt: string | null;
   passenger: User;
