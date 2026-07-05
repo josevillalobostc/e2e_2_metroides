@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import RequestTrip from "./pages/RequestTrip";
 import TripDetail from "./pages/TripDetail";
+import Historial from "./pages/Historial";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/request-trip" element={<RequestTrip />} />
-          <Route path="/historial" element={<></>} />
+          <Route path="/historial" element={<Historial />} />
           <Route path="/trips/:id" element={<TripDetail />} />
         </Route>
       </Routes>
