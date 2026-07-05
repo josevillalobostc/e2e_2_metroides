@@ -96,7 +96,11 @@ export default function RequestTrip() {
           Pedir viaje
         </button>
       </form>
-      <label>Error al pedir el viaje: {error}</label>
+      {error ? (
+        <label className="text-white">Error al pedir el viaje: {error}</label>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

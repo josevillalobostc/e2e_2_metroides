@@ -9,8 +9,14 @@ export default function DashboardDriver({ user }: { user: User }) {
   const navigate = useNavigate();
 
   const fetchTrips = () => {
-    api.get("/trips/pending").then((response) => setPendingTrips(response.data)).catch(() => {});
-    api.get("/trips/my").then((response) => setMyTrips(response.data)).catch(() => {});
+    api
+      .get("/trips/pending")
+      .then((response) => setPendingTrips(response.data))
+      .catch(() => {});
+    api
+      .get("/trips/my")
+      .then((response) => setMyTrips(response.data))
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -26,7 +32,7 @@ export default function DashboardDriver({ user }: { user: User }) {
       .catch((e) => alert(e.response?.data?.error));
   };
 
-  const activeTrip = myTrips.find(t => t.status === "IN_PROGRESS");
+  const activeTrip = myTrips.find((t) => t.status === "IN_PROGRESS");
 
   return (
     <div className="text-white p-2 m-2 flex flex-col">
@@ -35,9 +41,14 @@ export default function DashboardDriver({ user }: { user: User }) {
       </label>
 
       {activeTrip && (
-        <div className="bg-zinc-800 p-4 mb-4 rounded-xl cursor-pointer" onClick={() => navigate(`/trips/${activeTrip.id}`)}>
+        <div
+          className="bg-zinc-800 p-4 mb-4 rounded-xl cursor-pointer"
+          onClick={() => navigate(`/trips/${activeTrip.id}`)}
+        >
           <label>Tienes un viaje en curso</label>
-          <p>{activeTrip.pickupAddress} -{">"} {activeTrip.dropoffAddress}</p>
+          <p>
+            {activeTrip.pickupAddress} -{">"} {activeTrip.dropoffAddress}
+          </p>
         </div>
       )}
 
@@ -47,15 +58,20 @@ export default function DashboardDriver({ user }: { user: User }) {
           <label>No hay viajes pendientes</label>
         ) : (
           pendingTrips.map((trip) => (
-            <div key={trip.id} className="p-4 bg-zinc-800 rounded-lg flex justify-between">
+            <div
+              key={trip.id}
+              className="p-4 bg-zinc-800 rounded-lg flex justify-between"
+            >
               <div>
                 <p>Pasajero: {trip.passenger.firstName}</p>
-                <p>{trip.pickupAddress} -{">"} {trip.dropoffAddress}</p>
+                <p>
+                  {trip.pickupAddress} -{">"} {trip.dropoffAddress}
+                </p>
               </div>
               <button
                 onClick={() => handleAccept(trip.id)}
                 disabled={!user.available}
-                className="bg-blue-600 p-2 rounded-md"
+                className="bg-blue-600 p-2 rounded-md hover:cursor-pointer hover:bg-blue-500"
               >
                 Aceptar
               </button>

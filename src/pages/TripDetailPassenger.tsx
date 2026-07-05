@@ -28,7 +28,11 @@ export default function TripDetailPassenger({ tripId }: { tripId: string }) {
     fetchTrip();
     const interval = setInterval(() => {
       setTrip((currentTrip) => {
-        if (!currentTrip || currentTrip.status === "PENDING" || currentTrip.status === "IN_PROGRESS") {
+        if (
+          !currentTrip ||
+          currentTrip.status === "PENDING" ||
+          currentTrip.status === "IN_PROGRESS"
+        ) {
           fetchTrip();
         }
         return currentTrip;
@@ -39,7 +43,10 @@ export default function TripDetailPassenger({ tripId }: { tripId: string }) {
 
   const onRate = (data: RatingForm) => {
     api
-      .post(`/trips/${tripId}/rate`, { rating: parseInt(data.rating), comment: data.comment })
+      .post(`/trips/${tripId}/rate`, {
+        rating: parseInt(data.rating),
+        comment: data.comment,
+      })
       .then(() => fetchTrip())
       .catch((e) => setError(e.response?.data?.error));
   };
@@ -55,27 +62,48 @@ export default function TripDetailPassenger({ tripId }: { tripId: string }) {
         Ruta: {trip.pickupAddress} -{">"} {trip.dropoffAddress}
       </label>
       <label>
-        Conductor: {trip.driver ? `${trip.driver.firstName} ${trip.driver.lastName} (Rating: ${trip.driver.rating})` : "buscando conductor..."}
+        Conductor:{" "}
+        {trip.driver
+          ? `${trip.driver.firstName} ${trip.driver.lastName} (Rating: ${trip.driver.rating})`
+          : "buscando conductor..."}
       </label>
 
       {trip.status === "COMPLETED" && trip.passengerRating === null && (
-        <form onSubmit={handleSubmit(onRate)} className="flex flex-col gap-2 mt-4">
+        <form
+          onSubmit={handleSubmit(onRate)}
+          className="flex flex-col gap-2 mt-4"
+        >
           <label>Califica tu viaje</label>
-          <select {...register("rating", { required: true })} className="p-2 bg-zinc-900 rounded-md">
+          <select
+            {...register("rating", { required: true })}
+            className="p-2 bg-zinc-900 rounded-md"
+          >
             <option value="5">5 - Excelente</option>
             <option value="4">4 - Bueno</option>
             <option value="3">3 - Regular</option>
             <option value="2">2 - Malo</option>
             <option value="1">1 - Pésimo</option>
           </select>
-          <input {...register("comment")} placeholder="Comentario" className="p-2 bg-zinc-900 rounded-md" />
-          <button type="submit" className="bg-blue-600 p-2 rounded-md">Enviar calificacion</button>
+          <input
+            {...register("comment")}
+            placeholder="Comentario"
+            className="p-2 bg-zinc-900 rounded-md"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 p-2 rounded-md hover:bg-blue-600 hover:cursor-pointer"
+          >
+            Enviar calificacion
+          </button>
         </form>
       )}
 
       {trip.passengerRating !== null && (
         <div className="mt-4">
-          <label>Tu calificacion: {trip.passengerRating} {trip.ratingComment && `- "${trip.ratingComment}"`}</label>
+          <label>
+            Tu calificacion: {trip.passengerRating}{" "}
+            {trip.ratingComment && `- "${trip.ratingComment}"`}
+          </label>
         </div>
       )}
     </div>

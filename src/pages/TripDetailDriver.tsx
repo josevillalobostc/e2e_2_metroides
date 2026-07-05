@@ -39,7 +39,10 @@ export default function TripDetailDriver({ tripId }: { tripId: string }) {
       </label>
 
       {trip.status === "IN_PROGRESS" && (
-        <button onClick={handleComplete} className="mt-4 bg-green-600 p-2 rounded-md text-white">
+        <button
+          onClick={handleComplete}
+          className="mt-4 bg-green-600 p-2 rounded-md text-white hover:bg-green-500 hover:cursor-pointer"
+        >
           Completar viaje
         </button>
       )}
